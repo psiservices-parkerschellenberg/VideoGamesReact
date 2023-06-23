@@ -66,6 +66,7 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Table1.sql" />
     <Build Include="dbo\Stored Procedures\GetAllGames.sql" />
+    <Build Include="dbo\Stored Procedures\GetGameById.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
