@@ -68,6 +68,7 @@
     <Build Include="dbo\Stored Procedures\GetAllGames.sql" />
     <Build Include="dbo\Stored Procedures\GetGameById.sql" />
     <Build Include="dbo\Stored Procedures\AddGame.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateGame.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
