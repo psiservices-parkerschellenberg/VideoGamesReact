@@ -71,5 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\settings\TurnOffCache.sql" />
+    <None Include="GamesDBR.publish.xml" />
   </ItemGroup>
 </Project>
