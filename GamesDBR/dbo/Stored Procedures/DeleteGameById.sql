@@ -6,7 +6,7 @@
     @Price DECIMAL(18, 2)
 AS
 BEGIN
-    UPDATE dbo.GamesNew
+    UPDATE dbo.GamesR
     SET Title = @Title,
         ReleaseDate = @ReleaseDate,
         Developer = @Developer,
