@@ -61,6 +61,7 @@
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\settings" />
+    <Folder Include="Scripts\seed" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Table1.sql" />
@@ -72,5 +73,6 @@
   <ItemGroup>
     <None Include="Scripts\settings\TurnOffCache.sql" />
     <None Include="GamesDBR.publish.xml" />
+    <None Include="Scripts\seed\SeedIfEmpty.sql" />
   </ItemGroup>
 </Project>

@@ -11,3 +11,4 @@ Post-Deployment Script Template
 */
 
 :r .\settings\TurnOffCache.sql
+:r .\seed\SeedIfEmpty.sql
