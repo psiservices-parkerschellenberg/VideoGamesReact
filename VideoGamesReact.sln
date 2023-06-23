@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{9256C934-EF70-499C-B429-FB4DC78964F9}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GamesDBR", "GamesDBR\GamesDBR.sqlproj", "{D0CD938D-BB87-4EE3-B248-18C4A04641C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{9256C934-EF70-499C-B429-FB4DC78964F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9256C934-EF70-499C-B429-FB4DC78964F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9256C934-EF70-499C-B429-FB4DC78964F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0CD938D-BB87-4EE3-B248-18C4A04641C7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
