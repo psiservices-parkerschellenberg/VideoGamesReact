@@ -1,83 +1,78 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Insight.Database;
+using Web.Models;
+//using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+//using System.Data.Common;
+//using System.Threading.Tasks;
+//using Microsoft.Extensions.Configuration;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Web.Controllers
 {
-    public class GamesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GamesController : ControllerBase
     {
-        // GET: GamesController
-        public ActionResult Index()
+        private readonly IDbConnection _dbConnection;
+
+        public GamesController(IConfiguration configuration)
         {
-            return View();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            _dbConnection = new SqlConnection(connectionString);
         }
 
-        // GET: GamesController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/Games
+        [HttpGet]
+        public IEnumerable<Game> Get()
         {
-            return View();
+            return _dbConnection.Query<Game>("GetAllGames");
         }
 
-        // GET: GamesController/Create
-        public ActionResult Create()
+        // GET api/Games/5
+        [HttpGet("{id}")]
+        public IEnumerable<Game> Get(int id)
         {
-            return View();
+            return _dbConnection.Query<Game>("GetGameById", new { Id = id });
         }
 
-        // POST: GamesController/Create
+        // POST api/Games
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public void Post([FromBody] GameNoID newGame)
         {
-            try
+            _dbConnection.Execute("AddGame", newGame);
+        }
+
+        // PUT api/Games/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] GameNoID request)
+        {
+            var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
+
+            if (game != null)
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                var updatedGame = new Game
+                {
+                    Id = id,
+                    Title = request.Title,
+                    ReleaseDate = request.ReleaseDate,
+                    Developer = request.Developer,
+                    Price = request.Price
+                };
+                _dbConnection.Execute("UpdateGame", updatedGame);
             }
         }
 
-        // GET: GamesController/Edit/5
-        public ActionResult Edit(int id)
+        // DELETE api/Games/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            return View();
+            _dbConnection.Execute("DeleteGameById", new { Id = id });
         }
 
-        // POST: GamesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: GamesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: GamesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
+
