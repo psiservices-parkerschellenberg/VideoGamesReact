@@ -1,22 +1,51 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
-import './custom.css';
+import { useEffect, useState } from "react";
 
-export default class App extends Component {
-  static displayName = App.name;
+const App = () => {
 
-  render() {
+    //1 create useState
+    const [games, setGames] = useState([])
+
+    //2 call api
+    useEffect(() => {
+        fetch("api/Games", { method: "GET" })
+            .then(response => response.json())
+            .then(responseJson => {
+                setGames(responseJson);
+            });
+    }, []);
+
+    //3 create div and table
     return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
+        <div className="container">
+            <h1>Games</h1>
+            <div className="row">
+                <div className="col-sm-12">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Release Date</th>
+                                <th>Developer</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {games.map((game) => (
+                                <tr>
+                                    <td>{game.id}</td>
+                                    <td>{game.title}</td>
+                                    <td>{game.releaseDate}</td>
+                                    <td>{game.developer}</td>
+                                    <td>{game.price}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     );
-  }
 }
+
+export default App;
