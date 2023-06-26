@@ -18,6 +18,8 @@ How to run:
 
 1. Clone this repo
 2. Check that you have SQL Server Express LocalDB configured on your machine to use Windows Authentication
-3. Run the program
-4. It should open XXX in the browser
-5. Make CRUD operation to you LocalDB from the browser
+3. Check that you have Node installed on your machine
+4. Use the publish.xml file to publish the database
+5. Run the program (Ctrl F5 in Visual Studio)
+6. The webpage should open in your browser
+7. Make CRUD operation to you LocalDB from there
