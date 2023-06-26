@@ -2,14 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Insight.Database;
 using Web.Models;
-//using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-//using System.Data.Common;
-//using System.Threading.Tasks;
-//using Microsoft.Extensions.Configuration;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Web.Controllers
 {
@@ -27,52 +21,66 @@ namespace Web.Controllers
 
         // GET: api/Games
         [HttpGet]
-        public IEnumerable<Game> Get()
+        public IActionResult Get()
         {
-            return _dbConnection.Query<Game>("GetAllGames");
+            var games = _dbConnection.Query<Game>("GetAllGames");
+            return Ok(games);
         }
 
         // GET api/Games/5
         [HttpGet("{id}")]
-        public IEnumerable<Game> Get(int id)
+        public IActionResult Get(int id)
         {
-            return _dbConnection.Query<Game>("GetGameById", new { Id = id });
+            var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
+            if (game == null)
+            {
+                return NotFound();
+            }
+            return Ok(game);
         }
 
         // POST api/Games
         [HttpPost]
-        public void Post([FromBody] GameNoID newGame)
+        public IActionResult Post([FromBody] GameNoID newGame)
         {
             _dbConnection.Execute("AddGame", newGame);
+            return Ok();
         }
 
         // PUT api/Games/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] GameNoID request)
+        public IActionResult Put(int id, [FromBody] GameNoID request)
         {
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
-
-            if (game != null)
+            if (game == null)
             {
-                var updatedGame = new Game
-                {
-                    Id = id,
-                    Title = request.Title,
-                    ReleaseDate = request.ReleaseDate,
-                    Developer = request.Developer,
-                    Price = request.Price
-                };
-                _dbConnection.Execute("UpdateGame", updatedGame);
+                return NotFound();
             }
+
+            var updatedGame = new Game
+            {
+                Id = id,
+                Title = request.Title,
+                ReleaseDate = request.ReleaseDate,
+                Developer = request.Developer,
+                Price = request.Price
+            };
+            _dbConnection.Execute("UpdateGame", updatedGame);
+            return Ok();
         }
 
         // DELETE api/Games/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _dbConnection.Execute("DeleteGameById", new { Id = id });
-        }
+            var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
+            if (game == null)
+            {
+                return NotFound();
+            }
 
+            _dbConnection.Execute("DeleteGameById", new { Id = id });
+            return Ok();
+        }
     }
 }
-
