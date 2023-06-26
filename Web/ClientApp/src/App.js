@@ -1,20 +1,101 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
+    const [games, setGames] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+    const [formData, setFormData] = useState({
+        title: "",
+        releaseDate: "",
+        developer: "",
+        price: ""
+    });
+    const [selectedGame, setSelectedGame] = useState(null);
 
-    //1 create useState
-    const [games, setGames] = useState([])
-
-    //2 call api
-    useEffect(() => {
+    const fetchGames = () => {
         fetch("api/Games", { method: "GET" })
             .then(response => response.json())
             .then(responseJson => {
                 setGames(responseJson);
+            })
+            .catch(error => {
+                console.error(error);
             });
+    };
+
+    useEffect(() => {
+        fetchGames();
     }, []);
 
-    //3 create div and table
+    const handleFormSubmit = () => {
+        if (selectedGame) {
+            fetch(`api/Games/${selectedGame.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(() => {
+                    setSelectedGame(null);
+                    setFormData({
+                        title: "",
+                        releaseDate: "",
+                        developer: "",
+                        price: ""
+                    });
+                    fetchGames();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            fetch("api/Games", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(() => {
+                    setFormData({
+                        title: "",
+                        releaseDate: "",
+                        developer: "",
+                        price: ""
+                    });
+                    fetchGames();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        setShowForm(false);
+    };
+
+    const handleGameUpdate = game => {
+        setSelectedGame(game);
+        setFormData({
+            title: game.title,
+            releaseDate: game.releaseDate,
+            developer: game.developer,
+            price: game.price
+        });
+        setShowForm(true);
+    };
+
+    const handleGameDelete = id => {
+        fetch(`api/Games/${id}`, {
+            method: "DELETE"
+        })
+            .then(() => {
+                fetchGames();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
     return (
         <div className="container">
             <h1>Games</h1>
@@ -28,24 +109,100 @@ const App = () => {
                                 <th>Release Date</th>
                                 <th>Developer</th>
                                 <th>Price</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {games.map((game) => (
-                                <tr>
+                                <tr key={game.id}>
                                     <td>{game.id}</td>
                                     <td>{game.title}</td>
                                     <td>{game.releaseDate}</td>
                                     <td>{game.developer}</td>
                                     <td>{game.price}</td>
+                                    <td>
+                                        <button onClick={() => handleGameUpdate(game)} className="btn btn-primary">
+                                            Update
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleGameDelete(game.id)} className="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+
+                    <button onClick={() => setShowForm(true)} className="btn btn-success">
+                        Add Game
+                    </button>
+
+                    {showForm && (
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <form onSubmit={handleFormSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="title">Title</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="title"
+                                            value={formData.title}
+                                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="releaseDate">Release Date</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="releaseDate"
+                                            value={formData.releaseDate}
+                                            onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="developer">Developer</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="developer"
+                                            value={formData.developer}
+                                            onChange={(e) => setFormData({ ...formData, developer: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="price">Price</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="price"
+                                            value={formData.price}
+                                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <button type="submit" className="btn btn-primary">
+                                        Submit
+                                    </button>
+                                    <button onClick={() => setShowForm(false)} className="btn btn-secondary">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
 }
+
 
 export default App;
