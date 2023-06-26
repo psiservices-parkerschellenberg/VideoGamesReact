@@ -5,7 +5,7 @@ const target = env.ASPNETCORE_HTTPS_PORT
     ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}`
     : env.ASPNETCORE_URLS
         ? env.ASPNETCORE_URLS.split(';')[0]
-        : 'http://localhost:30906';
+        : 'https://localhost:7183';
 
 const context = [
     "/api/Games",

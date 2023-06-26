@@ -3,6 +3,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "ReactJSDomain",
+    policy => policy.WithOrigins("http://localhost:3000")
+    .AllowAnyHeader()
+    .AllowAnyMethod());
+});
 
 var app = builder.Build();
 
@@ -14,6 +21,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("ReactJSDomain");
 app.UseStaticFiles();
 app.UseRouting();
 
