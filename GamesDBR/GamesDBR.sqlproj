@@ -64,7 +64,7 @@
     <Folder Include="Scripts\seed" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Table1.sql" />
+    <Build Include="dbo\Tables\GamesR.sql" />
     <Build Include="dbo\Stored Procedures\GetAllGames.sql" />
     <Build Include="dbo\Stored Procedures\GetGameById.sql" />
     <Build Include="dbo\Stored Procedures\AddGame.sql" />
