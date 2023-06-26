@@ -1,12 +1,14 @@
 //import logo from './logo.svg';
 import './App.css';
 import Layout from './components/shared/Layout';
+import AllGames from './pages/AllGames';
 
 function App() {
     return (
         <Layout>
-            <h1>Hello World</h1>
+            <AllGames></AllGames>
         </Layout>
     );
 }
+
 export default App;
