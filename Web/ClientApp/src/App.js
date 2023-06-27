@@ -77,7 +77,7 @@ const App = () => {
         setSelectedGame(game);
         setFormData({
             title: game.title,
-            releaseDate: game.releaseDate,
+            releaseDate: game.releaseDate.split('T')[0],
             developer: game.developer,
             price: game.price
         });
