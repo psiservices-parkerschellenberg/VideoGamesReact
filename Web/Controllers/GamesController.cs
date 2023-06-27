@@ -32,7 +32,7 @@ namespace Web.Controllers
         public IActionResult Get(int id)
         {
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
-            if (game == null)
+            if (game == null || game.Count == 0)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace Web.Controllers
         public IActionResult Put(int id, [FromBody] GameNoID request)
         {
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
-            if (game == null)
+            if (game == null || game.Count == 0)
             {
                 return NotFound();
             }
@@ -74,7 +74,7 @@ namespace Web.Controllers
         public IActionResult Delete(int id)
         {
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
-            if (game == null)
+            if (game == null || game.Count == 0)
             {
                 return NotFound();
             }
