@@ -191,7 +191,18 @@ const App = () => {
                                     <button type="submit" className="btn btn-primary">
                                         Submit
                                     </button>
-                                    <button onClick={() => setShowForm(false)} className="btn btn-secondary">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedGame(null);
+                                            setFormData({
+                                                title: "",
+                                                releaseDate: "",
+                                                developer: "",
+                                                price: ""
+                                            });
+                                            setShowForm(false);
+                                        }}
+                                        className="btn btn-secondary">
                                         Cancel
                                     </button>
                                 </form>
