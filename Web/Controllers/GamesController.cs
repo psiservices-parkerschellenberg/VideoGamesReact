@@ -34,7 +34,7 @@ namespace Web.Controllers
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
             if (game == null || game.Count == 0)
             {
-                return NotFound();
+                return NotFound($"A game with ID {id} was not found.");
             }
             return Ok(game);
         }
@@ -54,7 +54,7 @@ namespace Web.Controllers
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
             if (game == null || game.Count == 0)
             {
-                return NotFound();
+                return NotFound($"A game with ID {id} was not found.");
             }
 
             var updatedGame = new Game
@@ -76,7 +76,7 @@ namespace Web.Controllers
             var game = _dbConnection.Query<Game>("GetGameById", new { Id = id });
             if (game == null || game.Count == 0)
             {
-                return NotFound();
+                return NotFound($"A game with ID {id} was not found.");
             }
 
             _dbConnection.Execute("DeleteGameById", new { Id = id });
