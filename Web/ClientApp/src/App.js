@@ -158,7 +158,7 @@ const App = () => {
                                     <div className="form-group">
                                         <label htmlFor="releaseDate">Release Date</label>
                                         <input
-                                            type="text"
+                                            type="date"
                                             className="form-control"
                                             id="releaseDate"
                                             value={formData.releaseDate}
