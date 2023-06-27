@@ -118,7 +118,7 @@ const App = () => {
                                 <tr key={game.id}>
                                     <td>{game.id}</td>
                                     <td>{game.title}</td>
-                                    <td>{game.releaseDate}</td>
+                                    <td>{game.releaseDate.split('T')[0]}</td>
                                     <td>{game.developer}</td>
                                     <td>{game.price}</td>
                                     <td>
