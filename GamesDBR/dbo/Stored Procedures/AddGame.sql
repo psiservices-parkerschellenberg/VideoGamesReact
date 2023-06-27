@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[AddGame]
-    @Title varchar(50),
-	@ReleaseDate date,
-    @Developer varchar(50) = NULL,
-    @Price decimal(18, 2)
+    @Title VARCHAR(50),
+    @ReleaseDate DATE,
+    @Developer VARCHAR(50),
+    @Price DECIMAL(18, 2) = NULL
 AS
 BEGIN
     INSERT INTO GamesR(Title, ReleaseDate, Developer, Price)

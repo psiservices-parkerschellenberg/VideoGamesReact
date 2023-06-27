@@ -3,5 +3,5 @@
 AS
 BEGIN
     DELETE FROM GamesR
-    WHERE Id = @Id;
-END;
+    WHERE Id = @Id
+END
