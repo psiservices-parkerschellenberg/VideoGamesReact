@@ -127,7 +127,7 @@ const App = () => {
                                         <td>{game.title}</td>
                                         <td>{formattedDate}</td>
                                         <td>{game.developer}</td>
-                                        <td>{game.price}</td>
+                                        <td>${game.price.toFixed(2)}</td>
                                         <td>
                                             <button onClick={() => handleGameUpdate(game)} className="btn btn-primary">
                                                 Update
