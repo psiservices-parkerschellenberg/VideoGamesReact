@@ -144,7 +144,7 @@ const App = () => {
                         </tbody>
                     </table>
 
-                    <button onClick={() => setShowForm(true)} className="btn btn-success">
+                    <button onClick={() => setShowForm(true)} className="btn btn-success btn-margin">
                         Add Game
                     </button>
 
@@ -196,7 +196,7 @@ const App = () => {
                                             required
                                         />
                                     </div>
-                                    <button type="submit" className="btn btn-primary">
+                                    <button type="submit" className="btn btn-primary btn-margin">
                                         Submit
                                     </button>
                                     <button
@@ -210,7 +210,7 @@ const App = () => {
                                             });
                                             setShowForm(false);
                                         }}
-                                        className="btn btn-secondary">
+                                        className="btn btn-secondary btn-margin">
                                         Cancel
                                     </button>
                                 </form>

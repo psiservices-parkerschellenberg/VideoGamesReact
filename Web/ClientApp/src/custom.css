@@ -1,0 +1,54 @@
+﻿@import '~bootstrap/dist/css/bootstrap.css';
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.container {
+    margin-top: 30px;
+    width: fit-content;
+}
+
+h1 {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: initial;
+}
+
+    .table th {
+        background-color: #424242;
+    }
+
+    .table td {
+        background-color: #808080;
+    }
+
+    .table th,
+    .table td {
+        color: white;
+        border-color: #424242;
+        padding: 8px 20px;
+    }
+
+.form-group label {
+    color: #ffffff;
+}
+
+.form-control {
+    background-color: #424242;
+    color: #e0e0e0;
+    border-color: #424242;
+}
+
+.btn-margin {
+    margin: 15px 15px 25px 0;
+}
+
+form {
+    width: 500px;
+}
