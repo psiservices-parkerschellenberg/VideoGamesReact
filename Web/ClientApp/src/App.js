@@ -114,25 +114,33 @@ const App = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {games.map((game) => (
-                                <tr key={game.id}>
-                                    <td>{game.id}</td>
-                                    <td>{game.title}</td>
-                                    <td>{game.releaseDate.split('T')[0]}</td>
-                                    <td>{game.developer}</td>
-                                    <td>{game.price}</td>
-                                    <td>
-                                        <button onClick={() => handleGameUpdate(game)} className="btn btn-primary">
-                                            Update
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleGameDelete(game.id)} className="btn btn-danger">
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {games.map((game) => {
+                                const date = new Date(game.releaseDate);
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const year = date.getFullYear();
+                                const formattedDate = `${month}/${day}/${year}`;
+
+                                return (
+                                    <tr key={game.id}>
+                                        <td>{game.id}</td>
+                                        <td>{game.title}</td>
+                                        <td>{formattedDate}</td>
+                                        <td>{game.developer}</td>
+                                        <td>{game.price}</td>
+                                        <td>
+                                            <button onClick={() => handleGameUpdate(game)} className="btn btn-primary">
+                                                Update
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => handleGameDelete(game.id)} className="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
 
