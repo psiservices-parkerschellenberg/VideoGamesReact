@@ -10,6 +10,33 @@ const App = () => {
         price: ""
     });
     const [selectedGame, setSelectedGame] = useState(null);
+    const [errorMessageTitle, setErrorMessageTitle] = useState('');
+    const [errorMessageDev, setErrorMessageDev] = useState('');
+    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
+    const validateFormData = () => {
+
+        if (formData.title.length > 50) {
+            setErrorMessageTitle('Title must be less than 50 characters');
+            return;
+        } else {
+            setErrorMessageTitle('');
+        }
+
+        if (formData.developer.length > 50) {
+            setErrorMessageDev('Developer must be less than 50 characters');
+            return;
+        } else {
+            setErrorMessageDev('');
+        }
+
+        if (formData.title === "" || formData.developer === "" || formData.releaseDate === "" || errorMessageTitle || errorMessageDev) {
+            setSubmitButtonDisabled(true);
+            return;
+        }
+
+        setSubmitButtonDisabled(false);
+    }
 
     const fetchGames = () => {
         fetch("api/Games", { method: "GET" })
@@ -27,6 +54,8 @@ const App = () => {
     }, []);
 
     const handleFormSubmit = () => {
+        //e.preventDefault();
+
         if (selectedGame) {
             fetch(`api/Games/${selectedGame.id}`, {
                 method: "PUT",
@@ -43,6 +72,7 @@ const App = () => {
                         developer: "",
                         price: ""
                     });
+                    validateFormData();
                     fetchGames();
                 })
                 .catch(error => {
@@ -63,6 +93,7 @@ const App = () => {
                         developer: "",
                         price: ""
                     });
+                    validateFormData();
                     fetchGames();
                 })
                 .catch(error => {
@@ -81,6 +112,7 @@ const App = () => {
             developer: game.developer,
             price: game.price
         });
+        validateFormData();
         setShowForm(true);
     };
 
@@ -159,9 +191,14 @@ const App = () => {
                                             className="form-control"
                                             id="title"
                                             value={formData.title}
-                                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                            onChange={(e) => {
+                                                setFormData({ ...formData, title: e.target.value });
+                                                validateFormData();
+                                            }
+                                            }
                                             required
                                         />
+                                        {errorMessageTitle && <div className="error">{errorMessageTitle}</div>}
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="releaseDate">Release Date</label>
@@ -170,7 +207,11 @@ const App = () => {
                                             className="form-control"
                                             id="releaseDate"
                                             value={formData.releaseDate}
-                                            onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
+                                            onChange={(e) => {
+                                                setFormData({ ...formData, releaseDate: e.target.value });
+                                                validateFormData();
+                                            }
+                                            }
                                             required
                                         />
                                     </div>
@@ -184,6 +225,7 @@ const App = () => {
                                             onChange={(e) => setFormData({ ...formData, developer: e.target.value })}
                                             required
                                         />
+                                        {errorMessageDev && <div className="error">{errorMessageDev}</div>}
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="price">Price</label>
@@ -192,11 +234,14 @@ const App = () => {
                                             className="form-control"
                                             id="price"
                                             value={formData.price}
-                                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                            required
+                                            onChange={(e) => {
+                                                setFormData({ ...formData, price: e.target.value });
+                                                validateFormData();
+                                            }
+                                            }
                                         />
                                     </div>
-                                    <button type="submit" className="btn btn-primary btn-margin">
+                                    <button type="submit" className="btn btn-primary btn-margin" disabled={submitButtonDisabled}>
                                         Submit
                                     </button>
                                     <button
@@ -208,6 +253,7 @@ const App = () => {
                                                 developer: "",
                                                 price: ""
                                             });
+                                            validateFormData();
                                             setShowForm(false);
                                         }}
                                         className="btn btn-secondary btn-margin">

@@ -52,3 +52,7 @@ h1 {
 form {
     width: 500px;
 }
+
+.error {
+    color: red;
+}
