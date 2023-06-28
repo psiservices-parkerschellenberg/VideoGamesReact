@@ -44,7 +44,7 @@ namespace Web.Controllers
         public IActionResult Post([FromBody] GameNoID newGame)
         {
             _dbConnection.Execute("AddGame", newGame);
-            return Ok();
+            return Ok("New game added successfully.");
         }
 
         // PUT api/Games/5
@@ -66,7 +66,7 @@ namespace Web.Controllers
                 Price = request.Price
             };
             _dbConnection.Execute("UpdateGame", updatedGame);
-            return Ok();
+            return Ok($"Game with ID {id} updated successfully.");
         }
 
         // DELETE api/Games/5
@@ -80,7 +80,7 @@ namespace Web.Controllers
             }
 
             _dbConnection.Execute("DeleteGameById", new { Id = id });
-            return Ok();
+            return Ok($"Game with ID {id} deleted successfully.");
         }
     }
 }
