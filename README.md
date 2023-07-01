@@ -1,16 +1,16 @@
 # VideoGamesReact
 
-Third attempt to make a video games app which stores data on different video games including their Title, Release Date, Developer, and Price and allows the user to perform CRUD operations.
+React app which stores data on different video games including their Title, Release Date, Developer, and Price and allows the user to perform CRUD operations.
 
 
 
-Visual Studio project template (Web): ASP.NET Core with React.js
+REST API written in C# using Visual Studio project template: ASP.NET Core with React.js (Web)
 
-Visual Studio project template: SQL Server Database Project - used to create and manage the database
+Database created and managed using Microsoft SQL Server and Visual Studio project template: SQL Server Database Project
 
+Insight.Database used as micro-ORM
 
-
-Insight.Database for ORM
+Yup and formik used for form validation
 
 
 
